@@ -1,9 +1,10 @@
-# How to contribute
+# Contributing to Ebookchain
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting help](#getting-help)
 - [Submitting bug reports](#submitting-bug-reports)
 - [Contributing code](#contributing-code)
+- [Contact](#contact)
 
 ## Code of Conduct
 
@@ -11,8 +12,6 @@
   a friendly, safe and welcoming environment for all, Whether you're a 
   regular contributor or a newcomer.
 * Please be kind and courteous. There's no need to be mean or rude.
-* Respect that some individuals and cultures consider the casual use of
-  profanity offensive and off-putting.
 * Respect that people have differences of opinion and that every
   design or implementation choice carries a trade-off and numerous
   costs. There is seldom a right answer.
@@ -34,27 +33,25 @@
 
 When you get a question, please find the answers from the follow resources firstly.
 
-Documents, releases, marketing information are on [Dev blog](http://blog.ebookchain.org)
+Documents, releases, marketing information are on [Dev blog][]
 
 Community discussion, questions, and informal bug reporting are done on the
-[forum of Ebookchain](http://forum.ebookchain.org).
+[forum of Ebookchain][].
 
 ## Submitting bug reports
 
 Before reporting a bug, read these pointers.
 
-**Note:** The issue tracker is for *bugs*, not requests for help. Questions
-should be asked on the
-[forum of Ebookchain](http://forum.ebookchain.org) instead.
+**Note:** The issue tracker is for *bugs*, not requests for help. The preferred 
+way to report bugs is to use the GitHub issue tracker, for example, [Ebookcoin 
+issue tracker][], [Official site of Ebookchain][].Questions should be asked on the
+[forum of Ebookchain][] instead.
 
-When opening new issues or commenting on existing issues on Ebookchain
-please make sure discussions are related to concrete technical issues with the
-Ebookchain software.
+### Reporting bugs effectively
 
-The preferred way to report bugs is to use the
-GitHub issue tracker, for example, [Ebookcoin issue tracker](https://github.com/Ebookcoin/ebookcoin/issues) , [Official site of Ebookchain](https://github.com/Ebookchain/ebookchain.org/issues). 
-
-#### Reporting bugs effectively
+- When opening new issues or commenting on existing issues on Ebookchain
+  please make sure discussions are related to concrete technical issues with the
+  Ebookchain software.
 
 - Include information about **the browser and the operating system in which 
   the problem occurred**. 
@@ -69,29 +66,26 @@ GitHub issue tracker, for example, [Ebookcoin issue tracker](https://github.com/
   fix something that we can not observe.
 
 - If the problem can not be reproduced in any of the demos included in the
-  Ebookchain distribution, please provide an HTML document that demonstrates
-  the problem. 
+  Ebookchain distribution, please provide a document that demonstrates the 
+  problem. 
 
 ## Contributing code
 
 - Make sure you have a [GitHub Account](https://github.com/signup/free)
-- Fork [Ebookcoin](https://github.com/Ebookcoin/ebookcoin/)，or others
+- Fork [Ebookcoin](https://github.com/Ebookcoin/ebookcoin/)，or other projects
   ([how to fork a repo](https://help.github.com/articles/fork-a-repo))
 - Make your changes
 - If your changes are easy to test or likely to regress, add tests.
-- Make sure all tests pass. Visit `test/index.html` in your browser to
-  run them.
+- Make sure all tests pass.
 - Submit a pull request
 ([how to create a pull request](https://help.github.com/articles/fork-a-repo)).
-  Don't put more than one feature/fix in a single pull request.
-
-By contributing code to Ebookchain you agree to license the contributed code under Ebookchain's [MIT
-   license](LICENSE).
 
 ## Contact
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by:
-
-* Emailing [report@ebookchain.org](mailto:report@ebookchain.org) 
+* Email [report@ebookchain.org](mailto:report@ebookchain.org) 
 * QQ group: 185046161
+
+[Dev blog]: http://blog.ebookchain.org
+[forum of Ebookchain]: http://forum.ebookchain.org
+[Ebookcoin issue tracker]: https://github.com/Ebookcoin/ebookcoin/issues
+[Official site of Ebookchain]: https://github.com/Ebookchain/ebookchain.org/issues
