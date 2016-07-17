@@ -31,3 +31,20 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Book build output
+_book
+
+# eBook build output
+*.epub
+*.mobi
+*.pdf
+
+*.*~
+*.log
+
+bower_components
+doc
+
+.publish
+.vscode

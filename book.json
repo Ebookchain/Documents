@@ -1,0 +1,37 @@
+{
+    "bookname": "亿书文档",
+    "description": "亿书文档",
+    "author": "Imfly",
+    "language": "zh",
+    "keywords": [
+        "ebookcoin",
+        "docs"
+    ],
+    "ignores": ["backup", "_book", "styles", "assets", "node_modules","sources","doc"],
+    "sortedBy": "-",
+    "homepage": "http://ebookcain.github.io/Documents",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ebookchain/Documents.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Ebookchain/Documents/issues"
+    },
+    "plugins": [
+      "baidu",
+      "theme-api",
+      "-livereload"
+    ],
+    "pluginsConfig": {
+        "baidu": {
+            "token": "a489cddfaf5ed40abc3a60e2783e8019"
+        },
+        "theme-api": {
+          "split": true
+        }
+    },
+    "structure": {
+      "readme": "README.md"
+    }
+}
