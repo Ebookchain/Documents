@@ -1,0 +1,1348 @@
+
+<!DOCTYPE HTML>
+<html lang="zh" >
+    <head>
+        <title>Ebookcoin-v0.1.13 API · GitBook</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.1.1">
+        <meta name="author" content="Imfly">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-api/theme-api.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="EBOOKCOIN.html">
+            
+                <a href="EBOOKCOIN.html">
+            
+                    
+                    Ebookcoin-v0.1.13 API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    代码贡献
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="CONTRIBUTING_en.html">
+            
+                <a href="CONTRIBUTING_en.html">
+            
+                    
+                    Contributing to Ebookchain
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="CONTRIBUTING_zh-CN.html">
+            
+                <a href="CONTRIBUTING_zh-CN.html">
+            
+                    
+                    贡献到亿书
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Ebookcoin-v0.1.13 API</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>FORMAT: 1A</p>
+<h1 id="ebookcoin-api">Ebookcoin API</h1>
+<p>Ebookcoin Wallet REST API. All api using <strong>/api</strong> prefix.</p>
+<p><strong>How to work with API</strong></p>
+<ul>
+<li>Information need to return.</li>
+<li>Success parameter. Determines the success of a response.</li>
+<li>Error perameter. Provided if the success parameter equal <strong>&quot;false&quot;</strong>.</li>
+</ul>
+<p>API available only after wallet loading, before all routes will return:</p>
+<pre><code>{
+    &quot;success&quot; : false,
+    &quot;error&quot; : &quot;loading&quot;
+}
+</code></pre><h1 id="group-accounts">Group Accounts</h1>
+<p>Accounts manage api.</p>
+<h2 id="open-account-apiaccountsopen">Open account [/api/accounts/open]</h2>
+<p>Open account in wallet.</p>
+<p><strong>Previous version:</strong> /api/unlock</p>
+<h3 id="return-account-post">Return account [POST]</h3>
+<ul>
+<li>Request (application/json)</li>
+</ul>
+<pre><code>{
+    &quot;secret&quot; : &quot;secret key of account&quot;
+}
+</code></pre><ul>
+<li>Response 200 (application/json)</li>
+</ul>
+<pre><code>{
+    &quot;success&quot;: true,
+    &quot;account&quot;: {
+        &quot;address&quot;: &quot;Address of account. string&quot;,
+        &quot;unconfirmedBalance&quot;: &quot;Unconfirmed balance of account. integer&quot;,
+        &quot;balance&quot;: &quot;Balance of account. integer&quot;,
+        &quot;publicKey&quot;: &quot;Public key of account. Hex&quot;,
+        &quot;unconfirmedSignature&quot;: &quot;If account enabled second signature, but it&apos;s still not confirmed. Boolean: true or false&quot;,
+        &quot;secondSignature&quot;: &quot;If account enabled second signature. Boolean: true or false&quot;,
+        &quot;secondPublicKey&quot;: &quot;Second signature public key. Hex&quot;,
+        &quot;username&quot; : &quot;Username of account.&quot;
+    }
+}
+</code></pre><h2 id="get-balance-apiaccountsgetbalanceaddressaddress">Get balance [/api/accounts/getBalance?address={address}]</h2>
+<p>Get balance of account.</p>
+<p><strong>Previous version:</strong> /api/getBalance</p>
+<h3 id="retrive-balance-of-account-get">Retrive balance of account [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>address (string) ... Address of account</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;balance&quot; : &quot;Balance of account&quot;,
+      &quot;unconfirmedBalance&quot; : &quot;Unconfirmed balance of account&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-account-public-key-apiaccountsgetpublickeyaddressaddress">Get account public key [/api/accounts/getPublicKey?address={address}]</h2>
+<p>Get public key of account. If the account does not exist (not opened) will return error.</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="retrive-public-key-of-account-get">Retrive public key of account [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>address (string) ... Address of account</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;publicKey&quot;: &quot;Public key of account. Hex&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="generate-public-key-apiaccountsgeneratepublickey">Generate public key [/api/accounts/generatePublicKey]</h2>
+<p>Will return public key of provided secret key.</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="retrive-public-key-post">Retrive public key [POST]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot; : &quot;secret key of account&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;publicKey&quot;: &quot;Public key of account. Hex&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-account-apiaccountsaddressaddress">Get account [/api/accounts?address={address}]</h2>
+<p>Will return account by address.</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="retrive-account-get">Retrive account [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>address (string) ... Address of account</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;account&quot;: {
+          &quot;address&quot;: &quot;Address of account. String&quot;,
+          &quot;unconfirmedBalance&quot;: &quot;Unconfirmed balance of account. Integer&quot;,
+          &quot;balance&quot;: &quot;Balance of account. Integer&quot;,
+          &quot;publicKey&quot;: &quot;Public key of account. Hex&quot;,
+          &quot;unconfirmedSignature&quot;: &quot;If account enabled second signature, but it&apos;s still not confirmed. Boolean: true or false&quot;,
+          &quot;secondSignature&quot;: &quot;If account enabled second signature. Boolean: true or false&quot;,
+          &quot;secondPublicKey&quot;: &quot;Second signature public key. Hex&quot;
+      }
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-delegates-apiaccountsdelegatesaddressaddress">Get delegates [/api/accounts/delegates?address={address}]</h2>
+<p>Will return account&apos;s delegates by address.</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="retrive-delegates-get">Retrive delegates [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>address (string) ... Address of account</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;delegates&quot;: [array]
+  }
+</code></pre></li>
+</ul>
+<h2 id="put-delegates-apiaccountsdelegates">Put delegates [/api/accounts/delegates]</h2>
+<p>Will vote for selected delegates.</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="vote-for-delegates-put">Vote for delegates [PUT]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot; : &quot;Secret key of account&quot;,
+      &quot;publicKey&quot; : &quot;Public key of sender account, to verify secret passphrase in wallet. Optional, only for UI&quot;,
+      &quot;secondSecret&quot; : &quot;Secret key from second transaction, required if user uses second signature&quot;,
+      &quot;delegates&quot; : &quot;Array of string in the following format: [&quot;+DelegatePublicKey&quot;] OR [&quot;-DelegatePublicKey&quot;]. Use + to UPvote, - to DOWNvote&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;transaction&quot;: {object}
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-loader">Group Loader</h1>
+<p>Loader API.</p>
+<p>Providing sync &amp; loading information.
+Only this API working when wallet on loading.</p>
+<h2 id="get-loading-status-apiloaderstatus">Get loading status [/api/loader/status]</h2>
+<p>Get status of wallet at loading time.</p>
+<h3 id="retrive-loading-status-get">Retrive loading status [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;loaded&quot;: &quot;Is blockchain loaded? Boolean: true or false&quot;,
+      &quot;now&quot;: &quot;Last block loaded during loading time. Integer&quot;,
+      &quot;blocksCount&quot;: &quot;Total blocks count in blockchain at loading time. Integer&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-synchronization-status-apiloaderstatussync">Get synchronization status [/api/loader/status/sync]</h2>
+<p>Get synchronization status of wallet.</p>
+<h3 id="retrive-synchronization-status-get">Retrive synchronization status [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;sync&quot;: &quot;Is wallet is syncing with another peers? Boolean: true or false&quot;,
+      &quot;blocks&quot;: &quot;Number of blocks remaining to sync. Integer&quot;,
+      &quot;height&quot;: &quot;Total blocks in blockchain. Integer&quot;
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-transactions">Group Transactions</h1>
+<p>Transactions API.</p>
+<h2 id="get-list-of-transactions-apitransactionsblockidblockidsenderidsenderidrecipientidrecipientidlimitlimitoffsetoffsetorderbyfield">Get list of transactions [/api/transactions?blockId={blockId}&amp;senderId={senderId}&amp;recipientId={recipientId}&amp;limit={limit}&amp;offset={offset}&amp;orderBy={field}]</h2>
+<p><strong>Previous version:</strong> /api/getAddressTransactions.</p>
+<p>Transactions list matched by provided parameters.</p>
+<h3 id="retrive-list-of-transactions-get">Retrive list of transactions [GET]</h3>
+<p>All parameters joins by &quot;OR&quot;.</p>
+<p><strong>Example:</strong></p>
+<p>For request:
+/api/transactions?blockId=10910396031294105665&amp;senderId=6881298120989278452C&amp;orderBy=timestamp:desc</p>
+<p>It&apos;s looks like:
+blockId=10910396031294105665 <strong>OR</strong> senderId=6881298120989278452C</p>
+<ul>
+<li>Parameters<ul>
+<li>blockId (optional, string) ... Block id of transaction.</li>
+<li>senderId (optional, string) ... Sender address of transaction.</li>
+<li>recipientId (optional, string) ... Recipient of transaction.</li>
+<li>limit (optional, number) ... Limit of transactions to send in response. Default is 20.</li>
+<li>offset (optional, number) ... Offset to load. Integer.</li>
+<li>orderBy (optional, string) ... Name of column to order. After column name must go &quot;desc&quot; or &quot;acs&quot; to choose order type, prefix for column name is t_. Example: orderBy=t_timestamp:desc</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;transactions&quot; : [&quot;list of transactions objects&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="send-transaction-apitransactions">Send transaction [/api/transactions]</h2>
+<p>Send transaction to broadcast network.</p>
+<h3 id="sending-transaction-put">Sending transaction [PUT]</h3>
+<p><strong>Previous version:</strong> /api/sendFunds</p>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot; : &quot;Secret key of account&quot;,
+      &quot;amount&quot; : /* Amount of transaction * 10^8. Example: to send 1.1234 XCR, use 112340000 as amount */,
+      &quot;recipientId&quot; : &quot;Recipient of transaction. Address or username.&quot;,
+      &quot;publicKey&quot; : &quot;Public key of sender account, to verify secret passphrase in wallet. Optional, only for UI&quot;,
+      &quot;secondSecret&quot; : &quot;Secret key from second transaction, required if user uses second signature&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;transactionId&quot;: &quot;id of added transaction&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-transaction-apitransactionsgetidid">Get transaction [/api/transactions/get?id={id}]</h2>
+<p>Transaction matched by id.</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="retrive-transaction-by-id-get">Retrive transaction by id [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>id (string) ... String of transaction.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;transaction&quot;: {
+          &quot;id&quot;: &quot;Id of transaction. String&quot;,
+          &quot;type&quot;: &quot;Type of transaction. Integer&quot;,
+          &quot;subtype&quot;: &quot;Subtype of transaction. Integer&quot;,
+          &quot;timestamp&quot;: &quot;Timestamp of transaction. Integer&quot;,
+          &quot;senderPublicKey&quot;: &quot;Sender public key of transaction. Hex&quot;,
+          &quot;senderId&quot;: &quot;Address of transaction sender. String&quot;,
+          &quot;recipientId&quot;: &quot;Recipient id of transaction. String&quot;,
+          &quot;amount&quot;: &quot;Amount. Integer&quot;,
+          &quot;fee&quot;: &quot;Fee. Integer&quot;,
+          &quot;signature&quot;: &quot;Signature. Hex&quot;,
+          &quot;signSignature&quot;: &quot;Second signature. Hex&quot;,
+          &quot;companyGeneratorPublicKey&quot;: &quot;If transaction was sent to merchant, provided comapny generator public key to find company. Hex&quot;,
+          &quot;confirmations&quot;: &quot;Number of confirmations. Integer&quot;
+      }
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-unconfirmed-transaction-apitransactionsunconfirmedgetidid">Get unconfirmed transaction [/api/transactions/unconfirmed/get?id={id}]</h2>
+<p>Get unconfirmed transaction by id.</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="retrive-unconfirmed-transaction-by-id-get">Retrive unconfirmed transaction by id [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>id (string) ... String of unconfirmed transaction.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;transaction&quot;: {
+          &quot;id&quot;: &quot;Id of transaction. String&quot;,
+          &quot;type&quot;: &quot;Type of transaction. Integer&quot;,
+          &quot;subtype&quot;: &quot;Subtype of transaction. Integer&quot;,
+          &quot;timestamp&quot;: &quot;Timestamp of transaction. Integer&quot;,
+          &quot;senderPublicKey&quot;: &quot;Sender public key of transaction. Hex&quot;,
+          &quot;senderId&quot;: &quot;Address of transaction sender. String&quot;,
+          &quot;recipientId&quot;: &quot;Recipient id of transaction. String&quot;,
+          &quot;amount&quot;: &quot;Amount. Integer&quot;,
+          &quot;fee&quot;: &quot;Fee. Integer&quot;,
+          &quot;signature&quot;: &quot;Signature. Hex&quot;,
+          &quot;signSignature&quot;: &quot;Second signature. Hex&quot;,
+          &quot;confirmations&quot;: &quot;Number of confirmations. Integer&quot;
+      }
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-list-of-unconfirmed-transactions-apitransactionsunconfirmed">Get list of unconfirmed transactions [/api/transactions/unconfirmed]</h2>
+<p>Get list of unconfirmed transactions</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="retrive-list-of-unconfirmed-transactions-get">Retrive list of unconfirmed transactions [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;transactions&quot; : [list of transaction objects]
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-peers">Group Peers</h1>
+<h2 id="get-peers-list-apipeersstatestateosossharedsharedversionversionlimitlimitoffsetoffsetorderbyorderby">Get peers list [/api/peers?state={state}&amp;os={os}&amp;shared={shared}&amp;version={version}&amp;limit={limit}&amp;offset={offset}&amp;orderBy={orderBy}]</h2>
+<p>Get peers list by parameters.</p>
+<p>All parameters joins by <strong>OR</strong>.</p>
+<p><strong>Example:</strong>
+/api/peers?state=1&amp;version=0.1.8</p>
+<p>Will looks like: state=1 OR version=0.1.8</p>
+<h3 id="retrive-peers-list-get">Retrive peers list [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>state (string, optional) ... State of peer. 1 - disconnected. 2 - connected. 0 - banned.</li>
+<li>os (string, optional) ... OS of peer.</li>
+<li>shared (string, optional) ... is peer shared? Boolean: true or false.</li>
+<li>version (string, optional) ... Version of peer.</li>
+<li>limit (integer, optional) ... Limit to show. Max limit is 100.</li>
+<li>offset (integer, optional) ... Offset to load. Integer.</li>
+<li>orderBy (optional, string) ... Name of column to order. After column name must go &quot;desc&quot; or &quot;acs&quot; to choose order type.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;peers&quot; : [&quot;list of peers&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-peer-apipeersgetipipportport">Get peer [/api/peers/get?ip={ip}&amp;port={port}]</h2>
+<p>Get peer by ip and port</p>
+<h3 id="retrive-peer-get">Retrive peer [GET]</h3>
+<ul>
+<li>Parameters<ul>
+<li>ip (string) ... Ip of peer.</li>
+<li>port (integer) ... Port of peer.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;peer&quot; : &quot;peer object&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-peer-version-build-time-apipeersversion">Get peer version, build time [/api/peers/version]</h2>
+<p>Get peer version and build time</p>
+<h3 id="retrive-version-info-get">Retrive version info [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;version&quot; : &quot;version of Ebookcoin&quot;,
+      &quot;build&quot; : &quot;time of build&quot;
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-blocks">Group Blocks</h1>
+<p>Blocks manage API.</p>
+<h2 id="get-block-apiblocksgetidid">Get block [/api/blocks/get?id={id}]</h2>
+<h3 id="get-block-by-id-get">Get block by id [GET]</h3>
+<p>Get block by id.</p>
+<p><strong>Previous version:</strong> /api/getBlock</p>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>id (string) .. Id of block.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;block&quot;: {
+          &quot;id&quot;: &quot;Id of block. String&quot;,
+          &quot;version&quot;: &quot;Version of block. Integer&quot;,
+          &quot;timestamp&quot;: &quot;Timestamp of block. Integer&quot;,
+          &quot;height&quot;: &quot;Height of block. Integer&quot;,
+          &quot;previousBlock&quot;: &quot;Previous block id. String&quot;,
+          &quot;numberOfRequests&quot;: &quot;Not using now. Will be removed in 0.2.0&quot;,
+          &quot;numberOfTransactions&quot;: &quot;Number of transactions. Integer&quot;,
+          &quot;numberOfConfirmations&quot;: &quot;Not using now.&quot;,
+          &quot;totalAmount&quot;: &quot;Total amount of block. Integer&quot;,
+          &quot;totalFee&quot;: &quot;Total fee of block. Integer&quot;,
+          &quot;payloadLength&quot;: &quot;Payload length of block. Integer&quot;,
+          &quot;requestsLength&quot;: &quot;Not using now. Will be removed in 0.2.0&quot;,
+          &quot;confirmationsLength&quot;: &quot;Not using now.,
+          &quot;payloadHash&quot;: &quot;Payload hash. Hex&quot;,
+          &quot;generatorPublicKey&quot;: &quot;Generator public key. Hex&quot;,
+          &quot;generatorId&quot;: &quot;Generator id. String.&quot;,
+          &quot;generationSignature&quot;: &quot;Generation signature. Not using. Will be removed in 0.2.0&quot;,
+          &quot;blockSignature&quot;: &quot;Block signature. Hex&quot;
+      }
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-blocks-apiblocksgeneratorpublickeygeneratorpublickeyheightheightpreviousblockpreviousblocktotalamounttotalamounttotalfeetotalfeelimitlimitoffsetoffsetorderbyorderby">Get blocks [/api/blocks?generatorPublicKey={generatorPublicKey}&amp;height={height}&amp;previousBlock={previousBlock}&amp;totalAmount={totalAmount}&amp;totalFee={totalFee}&amp;limit={limit}&amp;offset={offset}&amp;orderBy={orderBy}]</h2>
+<p>All parameters joins by <strong>OR</strong>.</p>
+<p><strong>Example:</strong>
+/api/blocks?height=100&amp;totalAmount=10000</p>
+<p>Will looks like: height=100 OR totalAmount=10000</p>
+<p><strong>Previous version:</strong> /api/getLastBlocks</p>
+<h3 id="retrive-blocks-list-get">Retrive blocks list [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>totalFee (optional, integer) ... total fee of block.</li>
+<li>totalAmount (optional, integer) ... total amount of block.</li>
+<li>previousBlock (optional, string) ... previous block of need block.</li>
+<li>height (optional, integer) ... height of block.</li>
+<li>generatorPublicKey (optional, string) ... generator id of block in hex.</li>
+<li>limit (optional, number) ... limit of blocks to add to response. Default to 20.</li>
+<li>offset (optional, number) ... offset to load blocks. Integer.</li>
+<li>orderBy (optional, string) ... field name to order by. Format: fieldname:orderType. Example: height:desc, timestamp:asc</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;blocks&quot; : [&quot;array of blocks&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-blockchain-fee-percent-apiblocksgetfee">Get blockchain fee percent [/api/blocks/getFee]</h2>
+<p><strong>Previous version:</strong> /api/getFee</p>
+<h3 id="retrive-blockchain-fee-percent-get">Retrive blockchain fee percent [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;fee&quot; : &quot;fee percent&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-blockchain-height-apiblocksgetheight">Get blockchain height [/api/blocks/getHeight]</h2>
+<p>Get blockchain height.</p>
+<p><strong>Previous version:</strong> /api/getHeight</p>
+<h3 id="retrive-height-of-blockchain-get">Retrive height of blockchain [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;height&quot;: &quot;Height of blockchain. Integer&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-forged-by-account-apidelegatesforginggetforgedbyaccountgeneratorpublickeygeneratorpublickey">Get forged by account [/api/delegates/forging/getForgedByAccount?generatorPublicKey={generatorPublicKey}]</h2>
+<p>Get amount forged by account.</p>
+<h3 id="retrive-forged-by-account-get">Retrive forged by account [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>generatorPublicKey (string) ... Account public key. Hex</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;sum&quot; : &quot;Forged amount. Integer&quot;
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-signatures">Group Signatures</h1>
+<h2 id="get-signature-apisignaturesgetidid">Get signature [/api/signatures/get?id={id}]</h2>
+<p>Get second signature of account.</p>
+<p><strong>Previous version:</strong> nothing.</p>
+<h3 id="retrive-signature-get">Retrive signature [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>id (optional, string) ... Id of signature</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;signature&quot; : {
+          &quot;id&quot; : &quot;Id. String&quot;,
+          &quot;timestamp&quot; : &quot;TimeStamp. Integer&quot;,
+          &quot;publicKey&quot; : &quot;Public key of signature. hex&quot;,
+          &quot;generatorPublicKey&quot; : &quot;Public Key of Generator. hex&quot;,
+          &quot;signature&quot; : [array],
+          &quot;generationSignature&quot; : &quot;Generation Signature&quot;
+      }
+  }
+</code></pre></li>
+</ul>
+<h2 id="add-second-signature-apisignatures">Add second signature [/api/signatures]</h2>
+<p>Add second signature to account.</p>
+<p><strong>Previous version:</strong> /api/addPassPhrase</p>
+<h3 id="put-second-signature-for-account-put">Put second signature for account [PUT]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot; : &quot;secret key of account&quot;,
+      &quot;secondsecret&quot; : &quot;second key of account&quot;,
+      &quot;publicKey&quot; : &quot;optional, to verify valid secret key and account&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;transactionId&quot; : &quot;id of transaction with new signature&quot;,
+      &quot;publicKey&quot; : &quot;Public key of signature. hex&quot;
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-delegates">Group Delegates</h1>
+<h2 id="enable-delegate-on-account-apidelegates">Enable delegate on account [/api/delegates]</h2>
+<p>Calls for delegates functional.</p>
+<h3 id="enable-delegate-on-account-put">Enable delegate on account [PUT]</h3>
+<p>Get delegate of account.</p>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot; : &quot;Secret key of account&quot;,
+      &quot;secondSecret&quot;: &quot;Second secret of account&quot;,
+      &quot;username&quot; : &quot;Username of delegate. String from 1 to 20 characters.&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;transaction&quot;: &quot;transaction object&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-delegates-apidelegateslimitlimitoffsetoffsetorderbyorderby">Get delegates [/api/delegates?limit={limit}&amp;offset={offset}&amp;orderBy={orderBy}]</h2>
+<p>Get delegates list.</p>
+<h3 id="get-delegates-get">Get delegates [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>limit (optional, integer) ... Limit to show. Integer. Maximum is 100.</li>
+<li>offset (optional, integer) ... Offset. Integer.</li>
+<li>orderBy (optional, string) ... Order by field.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;delegates&quot;: &quot;delegates objects array&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-delegate-apidelegatesgetidtransactionid">Get delegate [/api/delegates/get?id={transactionId}]</h2>
+<p>Get delegate by transaction id.</p>
+<h3 id="get-delegate-get">Get delegate [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>transactionId (optional,string) ... Id of transaction where delegated was putted.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;delegate&quot;: {
+          &quot;username&quot;: &quot;username of delegate&quot;,
+          &quot;transactionId&quot;: &quot;transaction id&quot;,
+          &quot;votes&quot;: &quot;amount of stake voted for this delegate&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-votes-of-account-apiaccountsdelegatesaddressaddress">Get votes of account [/api/accounts/delegates/?address={address}]</h2>
+<p>Get votes by account address.</p>
+<h3 id="get-votes-get">Get votes [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>address (required, string) ... Address of account.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;delegates&quot;: &quot;array of delegates&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="enable-forging-on-delegate-apidelegatesforgingenable">Enable forging on delegate [/api/delegates/forging/enable]</h2>
+<p>Enable forging</p>
+<h3 id="enable-forging-post">Enable forging [POST]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot; : &quot;secret key of delegate account&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot; : true,
+      &quot;address&quot;: &quot;address&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="disable-foring-on-delegate-apidelegatesforgingdisable">Disable foring on delegate [/api/delegates/forging/disable]</h2>
+<p>Disable forging</p>
+<h2 id="disable-forging-post">Disable forging [POST]</h2>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot;: &quot;secret key of delegate account&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;address&quot;: &quot;address&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-status-of-forging-apiforgingstatus">Get status of forging [/api/forging/status]</h2>
+<p>Get status of forging.</p>
+<h3 id="get-status-of-forging">Get status of forging</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;publicKey&quot; : &quot;public key of account&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;enabled&quot;: &quot;Forging is enabled on this account or not?&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-voters-apidelegatesvoterspublickeypublickey">Get voters [/api/delegates/voters?publicKey={publicKey}]</h2>
+<p>Get voters of delegate</p>
+<h3 id="get-voters-get">Get voters [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>publicKey (required, string) ... public key of delegate.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;accounts&quot;: [&quot;array of accounts who vote for delegate&quot;]
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-messages">Group Messages</h1>
+<h2 id="send-message-apimessages">Send message [/api/messages]</h2>
+<p>Send message to recipient</p>
+<h3 id="send-message-put">Send message [PUT]</h3>
+<ul>
+<li><p>Request (applicatoion/json)</p>
+<pre><code>  {
+      &quot;recipientId&quot; : &quot;id of recipient. String. Optional.&quot;,
+      &quot;encrypt&quot; : &quot;encrypt message or not encrypt. Boolean. Default to false. If equal true need to provide recipient public key.&quot;,
+      &quot;recipientPublicKey&quot; : &quot;Public key of recipient account. Required if encrypt == true. String.&quot;
+      &quot;message&quot; : &quot;Message to send. From 1 to 140 characters. Required&quot;,
+      &quot;secret&quot; : &quot;Secret passphrase of your account. String. Required&quot;,
+      &quot;secondSecret&quot;: &quot;Second public key if using. String. &quot;,
+      &quot;publicKey&quot;: &quot;Your public key to verify sender. String, Hex. Optional&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;:true,
+      &quot;transactionId&quot;: &quot;Id of transaction.&quot;
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-usernames">Group usernames</h1>
+<h2 id="register-username-apiaccountsusername">Register username [/api/accounts/username]</h2>
+<h3 id="put-username-put">Put username [PUT]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot; : &quot;Secret passphrase of your account. String. Required&quot;,
+      &quot;secondSecret&quot;: &quot;Second public key if using. String. &quot;,
+      &quot;publicKey&quot;: &quot;Your public key to verify sender. String, Hex. Optional&quot;,
+      &quot;username&quot; : &quot;Username of delegate. String from 1 to 20 characters.&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;:true,
+      &quot;transactionId&quot;: &quot;Id of transaction.&quot;
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-contacts">Group Contacts</h1>
+<h2 id="add-contact-apicontacts">Add contact [/api/contacts]</h2>
+<h3 id="put-contact-put">Put contact [PUT]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot; : &quot;Secret passphrase of your account. String. Required&quot;,
+      &quot;secondSecret&quot;: &quot;Second public key if using. String. &quot;,
+      &quot;publicKey&quot;: &quot;Your public key to verify sender. String, Hex. Optional&quot;,
+      &quot;following&quot;: &quot;Address or username of account to follow. String. Required&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;:true,
+      &quot;transactionId&quot;: &quot;Id of transaction.&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-contacts-apicontactspublickeypublickey">Get contacts [/api/contacts/?publicKey={publicKey}]</h2>
+<p>Get contacts of account by public key</p>
+<h3 id="get-contact-get">Get contact [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>publicKey (required, string) ... public key of account.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;following&quot;: &quot;array of you following accounts&quot;,
+      &quot;followers&quot;: &quot;array of your followers&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-unconfirmed-contacts-apicontactsunconfirmedpublickeypublickey">Get unconfirmed contacts [/api/contacts/unconfirmed?publicKey={publicKey}]</h2>
+<p>Get unconfirmed contacts by public key.</p>
+<h3 id="get-unconfirmed-contacts-get">Get unconfirmed contacts [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>publicKey (required, string) ... public key of account.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;contacts&quot;: [&quot;array of contacts transactions&quot;]
+  }
+</code></pre></li>
+</ul>
+<h1 id="group-dapps">Group Dapps</h1>
+<h2 id="dapps-apidapps">DApps [/api/dapps]</h2>
+<h3 id="add-dapp-put">Add DApp [PUT]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot;: &quot;Secret of account. String. Required&quot;,
+      &quot;secondSecret&quot;: &quot;Second secret of account. String. Optional&quot;,
+      &quot;publicKey&quot;: &quot;Public key to verify sender secret key. Hex. Optional&quot;,
+      &quot;category&quot;: &quot;Category of DApp. Integer. Required&quot;,
+      &quot;name&quot;: &quot;Name of DApp. String. Required&quot;,
+      &quot;description&quot;: &quot;Description of DApp. String. Optional&quot;,
+      &quot;tags&quot;: &quot;Tags of DApp. String. Optional&quot;,
+      &quot;type&quot; : &quot;Type of DApp, now supported only 0 type. Integer. Required&quot;,
+      &quot;siaAscii&quot;: &quot;ASCII code of sia shared file. String. Optional&quot;,
+      &quot;git&quot;: &quot;Link to git repository. String. Optional&quot;,
+      &quot;icon&quot;: &quot;Link to icon file. PNG and JPG/JPEG supported. String. Optional&quot;,
+      &quot;siaIcon&quot;: &quot;ASCII code of sia shared icon file. String. Optional&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;transactionId&quot;: &quot;id of transaction&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-dapps-apidappscategorycategorynamenametypetypegitgitsiaasciisiaasciisiaiconsiaiconiconiconlimitlimitoffsetoffsetorderbyorderby">Get Dapps [/api/dapps?category={category}&amp;name={name}&amp;type={type}&amp;git={git}&amp;siaAscii={siaAscii}&amp;siaIcon={siaIcon}&amp;icon={icon}&amp;limit={limit}&amp;offset={offset}&amp;orderBy={orderBy}]</h2>
+<h3 id="get-dapps-get">Get Dapps [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>category (optional, integer) ... Category of DApp.</li>
+<li>name (optional, string) ... Name of DApp.</li>
+<li>type (optional, integer) ... Type of DApp.</li>
+<li>git (optional, string) ... Git repository link to DApp.</li>
+<li>limit (optional, integer) ... Limit of dapps in query. Maximum is 100.</li>
+<li>offset (optional, integer) ... Offset of dapps in query.</li>
+<li>orderBy (optional, string) ... Order by field.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;dapps&quot;: &quot;Array of dapps&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-dapp-apidappsgetidid">Get DApp [/api/dapps/get?id={id}]</h2>
+<h3 id="get-dapp-get">Get DApp [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>id (required, optional) ... Id of DApp.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;dapp&quot;: &quot;dapp&quot;
+  }
+</code></pre><h2 id="search-apidappssearchqqcategorycategoryinstalledinstalled">Search [/api/dapps/search?q={q}&amp;category={category}&amp;installed={installed}]</h2>
+</li>
+</ul>
+<h3 id="search-get">Search [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>q (required, string) ... query to search.</li>
+<li>category (optional, integer) ... category to search.</li>
+<li>installed (optional, integer) ... search only in installed dapp. 1 or 0.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;dapps&quot;: [&quot;array of dapps&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="install-dapp-apidappsinstall">Install DApp [/api/dapps/install]</h2>
+<p>Will install DApp on your node.</p>
+<h3 id="install-dapp-post">Install DApp [POST]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;id&quot;: &quot;id of dapp&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;path&quot;: &quot;path of installed dapp&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="installed-dapps-apidappsinstalled">Installed DApps [/api/dapps/installed]</h2>
+<p>Return list of installed dapps.</p>
+<h3 id="installed-dapps-get">Installed DApps [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: &quot;true&quot;,
+      &quot;dapps&quot;: [&quot;array of dapps&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="installed-dapps-ids-apidappsinstalledids">Installed DApps Ids [/api/dapps/installedIds]</h2>
+<p>Return list of installed dapps ids.</p>
+<h3 id="installed-dapps-ids-get">Installed DApps Ids [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;ids&quot;: [&quot;ids of dapps&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="uninstall-dapp-apidappsuninstall">Uninstall DApp [/api/dapps/uninstall]</h2>
+<p>Will uninstall dapp from your node.</p>
+<h3 id="uninstall-dapp-post">Uninstall DApp [POST]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;id&quot;: &quot;id of dapp&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true
+  }
+</code></pre></li>
+</ul>
+<h2 id="launch-dapp-apidappslaunch">Launch DApp [/api/dapps/launch]</h2>
+<p>It will launch dapp on your node</p>
+<h3 id="launch-dapp-post">Launch DApp [POST]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;id&quot;: &quot;id of dapp to launch&quot;,
+      &quot;params&quot;: &quot;params to launch dapp, not required, array&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true
+  }
+</code></pre></li>
+</ul>
+<h2 id="installing-apidappsinstalling">Installing [/api/dapps/installing]</h2>
+<p>Will return dapps that in installing right now.</p>
+<h3 id="installing-get">Installing [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;installing&quot;: [&quot;ids of dapps that installing&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="removing-apidappsremoving">Removing [/api/dapps/removing]</h2>
+<p>Will return dapps that in uninstalling right now.</p>
+<h3 id="removing-get">Removing [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;removing&quot;: [&quot;ids of dapps that removing&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="launched-apidappslaunched">Launched [/api/dapps/launched]</h2>
+<p>Will return launched dapps.</p>
+<h3 id="launched-get">Launched [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;launched&quot;: [&quot;list of launched dapps ids&quot;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="categories-apidappscategories">Categories [/api/dapps/categories]</h2>
+<p>Will return categories of dapps.</p>
+<h3 id="categories-get">Categories [GET]</h3>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;category&quot;: &quot;object with names and ids of dapps categories&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="stop-dapp-apidappsstop">Stop DApp [/api/dapps/stop]</h2>
+<p>Will stop dapp on your node.</p>
+<h3 id="stop-dapp-post">Stop DApp [POST]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;id&quot;: &quot;id of dapp to stop it&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true
+  }
+</code></pre></li>
+</ul>
+<h2 id="icon-dapp-apidappsicon">Icon DApp [/api/dapps/icon]</h2>
+<p>Using to get icon of dapp from sia.</p>
+<h3 id="icon-dapp-get">Icon DApp [GET]</h3>
+<ul>
+<li><p>Paremeters</p>
+<ul>
+<li>id (required, string) ... id of dapp</li>
+</ul>
+</li>
+<li><p>Response 200 (application/octet-stream)</p>
+</li>
+</ul>
+<h1 id="group-multisignatures">Group Multisignatures</h1>
+<p>Multisignature group API.</p>
+<h2 id="get-pending-multisignaturestransactions-apimultisignaturespendingpublickeypublickey">Get pending multisignatures/transactions [/api/multisignatures/pending?publicKey={publicKey}]</h2>
+<p>Return multisig transaction that waiting for your signature.</p>
+<h3 id="get-pending-multisignaturestransactions-get">Get pending multisignatures/transactions [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>publicKey (required,string) ... public key of account, hex string.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;transactions&quot;: [&apos;array of transactions to sign&apos;]
+  }
+</code></pre></li>
+</ul>
+<h2 id="create-multisignature-account-apimultisignatures">Create multisignature account [/api/multisignatures]</h2>
+<p>Create a multisignature account</p>
+<h3 id="create-multisignature-account-put">Create multisignature account [PUT]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot;: &quot;your secret. string. required.&quot;,
+      &quot;lifetime&quot;: &quot;request lifetime in hours (1-24). required.&quot;,
+      &quot;min&quot;: &quot;minimum signatures needed to approve a tx or a change (1-15). integer. required&quot;,
+      &quot;keysgroup&quot;: [array of public keys strings]. add &apos;+&apos; before publicKey to add an account or &apos;-&apos; to remove. required.
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;transactionId&quot;: &quot;transaction id&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="sign-transaction-apimultisignaturessign">Sign transaction [/api/multisignatures/sign]</h2>
+<p>Sign transaction that wait for your signature.</p>
+<h3 id="sign-transaction-post">Sign transaction [POST]</h3>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot;: &quot;your secret. string. required.&quot;,
+      &quot;publicKey&quot;: &quot;public key of your account. string. optional.&quot;,
+      &quot;transactionId&quot;: &quot;id of transaction to sign&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;transactionId&quot;: &quot;transaction id&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="enable-multisignature-on-account-apimultisignatures">Enable multisignature on account [/api/multisignatures]</h2>
+<p>Enable multisignature on your account.</p>
+<ul>
+<li><p>Request (application/json)</p>
+<pre><code>  {
+      &quot;secret&quot;: &quot;your secret. string. required.&quot;,
+      &quot;publicKey&quot;: &quot;public key of your account. string. optional.&quot;,
+      &quot;secondSecret&quot;: &quot;your second secret if you have it. string. optional.&quot;,
+      &quot;min&quot;: &quot;min count of signatures to process transaction. integer. required&quot;,
+      &quot;lifetime&quot;: &quot;life time of transaction. from 1 to 72 hours. integer. required&quot;,
+      &quot;keysgroup&quot;: &quot;array of public keys of other signers.&quot;
+  }
+</code></pre></li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;transactionId&quot;: &quot;transactionId&quot;
+  }
+</code></pre></li>
+</ul>
+<h2 id="get-accounts-of-multisignature-apimultisignaturesaccountspublickeypublickey">Get accounts of multisignature [/api/multisignatures/accounts?publicKey={publicKey}]</h2>
+<p>Get accounts of multisignature.</p>
+<h3 id="get-accounts-of-multisignature-get">Get accounts of multisignature [GET]</h3>
+<ul>
+<li><p>Parameters</p>
+<ul>
+<li>publicKey (required, string) ... Public key of multisignature account.</li>
+</ul>
+</li>
+<li><p>Response 200 (application/json)</p>
+<pre><code>  {
+      &quot;success&quot;: true,
+      &quot;accounts&quot;: &quot;array of accounts&quot;
+  }
+</code></pre></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Ebookcoin-v0.1.13 API","level":"1.2","depth":1,"next":{"title":"代码贡献","level":"1.3","depth":1,"ref":"","articles":[{"title":"Contributing to Ebookchain","level":"1.3.1","depth":2,"path":"content/CONTRIBUTING_en.md","ref":"content/CONTRIBUTING_en.md","articles":[]},{"title":"贡献到亿书","level":"1.3.2","depth":2,"path":"content/CONTRIBUTING_zh-CN.md","ref":"content/CONTRIBUTING_zh-CN.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["baidu","theme-api","-livereload","livereload"],"license":"MIT","ignores":["backup","_book","styles","assets","node_modules","sources","doc"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"baidu":{"token":"a489cddfaf5ed40abc3a60e2783e8019"},"theme-api":{"languages":[],"split":true,"theme":"light"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","repository":{"type":"git","url":"https://github.com/Ebookchain/Documents.git"},"keywords":["ebookcoin","docs"],"author":"Imfly","homepage":"http://ebookcain.github.io/Documents","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"bookname":"亿书文档","sortedBy":"-","variables":{},"language":"zh","gitbook":"*","description":"亿书文档","bugs":{"url":"https://github.com/Ebookchain/Documents/issues"}},"file":{"path":"content/EBOOKCOIN.md","mtime":"2016-07-17T11:45:33.105Z","type":"markdown"},"gitbook":{"version":"3.1.1","time":"2016-07-17T11:37:25.173Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-baidu/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-api/theme-api.js"></script>
+        
+    
+
+    </body>
+</html>
+
